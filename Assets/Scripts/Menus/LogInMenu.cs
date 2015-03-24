@@ -2,16 +2,14 @@
 using System.Collections;
 
 public class LogInMenu : MonoBehaviour {
-	public GameObject LogInOption;
-	public GameObject SignUpOption;
 
 	public void renderLogInOption(){
-		Instantiate (LogInOption);
+		MenuFactoryMethod.createLogInOption ();
 		Destroy(this.gameObject);
 	}
 
 	public void renderSignUpOption(){
-		Instantiate (SignUpOption);
+		MenuFactoryMethod.createSignUpOption ();
 		Destroy(this.gameObject);
 	}
 

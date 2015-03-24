@@ -2,8 +2,6 @@
 using System.Collections;
 
 public class FrontController : MonoBehaviour {
-	public GameObject LogInMenu;
-	public GameObject MainMenu;
 
 	private FilterManager filters;
 	private FilterChain filterChain;
@@ -13,9 +11,9 @@ public class FrontController : MonoBehaviour {
 		filterChain.add (new SessionFilter());
 		filters = new FilterManager (filterChain);
 		if (filters.validate()) {
-			Instantiate(MainMenu);
+			MenuFactoryMethod.createMainMenu();
 		}else{
-			Instantiate(LogInMenu);
+			MenuFactoryMethod.createLogInMenu();
 		}
 	}
 

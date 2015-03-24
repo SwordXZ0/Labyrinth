@@ -2,10 +2,9 @@
 using System.Collections;
 
 public class ScoresMenu : MonoBehaviour {
-	public GameObject mainMenu;
 
 	public void renderMainMenu(){
-		Instantiate(mainMenu);
+		MenuFactoryMethod.createMainMenu ();
 		Destroy(this.gameObject);
 	}
 }

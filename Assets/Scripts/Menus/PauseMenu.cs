@@ -2,14 +2,11 @@
 using System.Collections;
 
 public class PauseMenu : MonoBehaviour {
-	
-	public GameObject Instruction;
-	public GameObject confirmation;
-	public GameObject pause;
+
 
 
 	public void Controls(){
-		Instantiate(Instruction);
+		MenuFactoryMethod.createInstructionsGameMenu ();
 		Destroy(this.gameObject);
 	}
 
@@ -18,7 +15,7 @@ public class PauseMenu : MonoBehaviour {
 	}
 
 	public void surrender(){
-		Instantiate(confirmation);
+		MenuFactoryMethod.createConfrimationGameMenu ();
 		Destroy (this.gameObject);
 	}
 }

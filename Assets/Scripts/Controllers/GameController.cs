@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.P)) {
 			if(GameObject.Find("PauseMenu(Clone)")==null){
-				Instantiate(pauseMenu);
+				MenuFactoryMethod.createPauseMenu();
 			}
 		}
 	}

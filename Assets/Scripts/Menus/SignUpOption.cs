@@ -5,9 +5,6 @@ using UnityEngine.UI;
 using System.Text.RegularExpressions;
 
 public class SignUpOption : MonoBehaviour {
-	public GameObject mainMenu;
-	public GameObject LogInMenu;
-	public GameObject warning;
 
 	FilterManager filterManager;
 	FilterChain filterChain;
@@ -25,10 +22,10 @@ public class SignUpOption : MonoBehaviour {
 		filterManager = new FilterManager (filterChain);
 		
 		if (filterManager.validate ()) {
-			Instantiate(mainMenu);
+			MenuFactoryMethod.createMainMenu();
 			Destroy(this.gameObject);
 		} else {
-			GameObject warningScreen= Instantiate(warning);
+			GameObject warningScreen= MenuFactoryMethod.createWarningMenu();
 			warningScreen.transform.Find("Text").GetComponent<Text>().text=filterManager.operationMessage;
 			WarningMenu w=(WarningMenu)warningScreen.transform.GetComponent<WarningMenu>();
 			w.Login=this.gameObject;
@@ -37,7 +34,7 @@ public class SignUpOption : MonoBehaviour {
 	}
 
 	public void renderLogInMenu(){
-		Instantiate(LogInMenu);
+		MenuFactoryMethod.createLogInMenu ();
 		Destroy(this.gameObject);
 	}	
 }
