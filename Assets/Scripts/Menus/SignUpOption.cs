@@ -8,8 +8,10 @@ public class SignUpOption : MonoBehaviour {
 
 	FilterManager filterManager;
 	FilterChain filterChain;
+	public bool block=false;
 
 	public void renderMainMenu(){
+		InputField u =transform.Find ("User").GetComponent<InputField>();
 		InputField m =transform.Find ("mail").GetComponent<InputField>();
 		InputField p =transform.Find ("password").GetComponent<InputField>();
 		InputField r =transform.Find ("ReTypepassword").GetComponent<InputField>();
@@ -19,11 +21,14 @@ public class SignUpOption : MonoBehaviour {
 		filterChain.add (new EmptyFieldsFilter(inputs));
 		filterChain.add (new EmailFilter(m.text));
 		filterChain.add (new ReTypeFilter(p.text,r.text));
+		filterChain.add (new SQLInjectionFilter(inputs));
 		filterManager = new FilterManager (filterChain);
 		
 		if (filterManager.validate ()) {
-			MenuFactoryMethod.createMainMenu();
-			Destroy(this.gameObject);
+			if(!block){
+				block=true;
+				StartCoroutine(BusinessDelegate.signUpService(u.text,p.text,m.text,this.gameObject));
+			}
 		} else {
 			GameObject warningScreen= MenuFactoryMethod.createWarningMenu();
 			warningScreen.transform.Find("Text").GetComponent<Text>().text=filterManager.operationMessage;

@@ -8,6 +8,7 @@ public class ConfirmationMenu : MonoBehaviour {
 	
 	public void yes(){
 		Instantiate(yesMenu);
+		PlayerPrefs.DeleteKey("session");
 		Destroy(this.gameObject);
 	}
 

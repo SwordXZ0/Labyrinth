@@ -4,7 +4,12 @@ using System.Collections;
 public class SessionFilter : Filter {
 
 	public override bool validate(){
-		message="No session";
-		return false;
+		if (!PlayerPrefs.HasKey ("session")) {
+			message = "No session";
+			return false;
+		} else {
+			message="session active";
+			return true;
+		}
 	}
 }

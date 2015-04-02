@@ -17,4 +17,9 @@ public class GameController : MonoBehaviour {
 			}
 		}
 	}
+
+	void OnApplicationQuit() {
+		PlayerPrefs.DeleteKey("session");
+	}
+
 }

@@ -20,4 +20,8 @@ public class FrontController : MonoBehaviour {
 	void Update () {
 
 	}
+
+	void OnApplicationQuit() {
+		PlayerPrefs.DeleteKey("session");
+	}
 }

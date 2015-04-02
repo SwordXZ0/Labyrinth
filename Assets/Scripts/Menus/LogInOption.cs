@@ -6,6 +6,7 @@ public class LogInOption : MonoBehaviour {
 
 	FilterManager filterManager;
 	FilterChain filterChain;
+	public bool block=false;
 
 
 	public void renderMainMenu(){
@@ -15,12 +16,14 @@ public class LogInOption : MonoBehaviour {
 
 		filterChain = new FilterChain ();
 		filterChain.add (new EmptyFieldsFilter(inputs));
-		filterChain.add (new CredentialsFilter(u.text, p.text));
+		filterChain.add (new SQLInjectionFilter(inputs));
 		filterManager = new FilterManager (filterChain);
 
 		if (filterManager.validate ()) {
-			MenuFactoryMethod.createMainMenu();
-			Destroy(this.gameObject);
+			if(!block){
+				block=true;
+				StartCoroutine(BusinessDelegate.startService(u.text,p.text,this.gameObject));
+			}
 		} else {
 			GameObject warningScreen= MenuFactoryMethod.createWarningMenu();
 			warningScreen.transform.Find("Text").GetComponent<Text>().text=filterManager.operationMessage;
