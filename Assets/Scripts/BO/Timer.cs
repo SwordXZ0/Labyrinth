@@ -7,6 +7,7 @@ public class Timer : MonoBehaviour {
 	public  Text text;
 	// Use this for initialization
 	void Start () {
+		timer = 0;
 		text= (Text)this.transform.Find("Text").GetComponent<Text>();
 	}
 	
