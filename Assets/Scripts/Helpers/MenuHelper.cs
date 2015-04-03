@@ -14,6 +14,15 @@ public static class MenuHelper {
 		return true;
 	}
 
+	public static bool validateLength(InputField[] fields){
+		foreach(InputField i in fields){
+			if(i.text.Length>20){
+				return false;
+			}
+		}
+		return true;
+	}
+
 
 	public static bool validateMatchingPasswords(string password1, string password2){
 		if(password1.Equals(password2)){

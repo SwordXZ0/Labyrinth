@@ -8,6 +8,11 @@ public class LogInOption : MonoBehaviour {
 	FilterChain filterChain;
 	public bool block=false;
 
+	BusinessDelegate businessService;
+	void Start () {
+		businessService = new BusinessDelegate ();
+	}
+
 
 	public void renderMainMenu(){
 		InputField u =transform.Find ("User").GetComponent<InputField>();
@@ -16,13 +21,16 @@ public class LogInOption : MonoBehaviour {
 
 		filterChain = new FilterChain ();
 		filterChain.add (new EmptyFieldsFilter(inputs));
+		filterChain.add (new LengthFilter(inputs));
 		filterChain.add (new SQLInjectionFilter(inputs));
 		filterManager = new FilterManager (filterChain);
 
 		if (filterManager.validate ()) {
 			if(!block){
 				block=true;
-				StartCoroutine(BusinessDelegate.startService(u.text,p.text,this.gameObject));
+				UserDTO user = new UserDTO (u.text,p.text);
+				businessService.setServiceType("login", user,null,this.gameObject);
+				StartCoroutine(businessService.doTask());
 			}
 		} else {
 			GameObject warningScreen= MenuFactoryMethod.createWarningMenu();

@@ -36,4 +36,10 @@ public class MenuFactoryMethod:MonoBehaviour {
 	public static GameObject createWarningMenu(){
 		return Instantiate (Resources.Load("Prefabs/Menu/WarningMenu")as GameObject);
 	}
+	public static GameObject createWinnerMenu(){
+		return Instantiate (Resources.Load("Prefabs/Menu/WinMenu")as GameObject);
+	}
+	public static GameObject createLostMenu(){
+		return Instantiate (Resources.Load("Prefabs/Menu/LostMenu")as GameObject);
+	}
 }

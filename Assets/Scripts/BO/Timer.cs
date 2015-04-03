@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Timer : MonoBehaviour {
 	private static float timer;
-	private static Text text;
+	public  Text text;
 	// Use this for initialization
 	void Start () {
 		text= (Text)this.transform.Find("Text").GetComponent<Text>();

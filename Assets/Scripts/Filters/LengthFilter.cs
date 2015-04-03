@@ -2,23 +2,21 @@
 using System.Collections;
 
 using UnityEngine.UI;
-
-public class SQLInjectionFilter : Filter {
+public class LengthFilter : Filter {
 	InputField[] inputs;
 
-	public SQLInjectionFilter(InputField[] inputs){
+	public LengthFilter(InputField[] inputs){
 		this.inputs = inputs;
 	}
-
+	
 	public override bool validate(){
-		if (MenuHelper.validateNoSQLInjection (inputs)) {
+		if (MenuHelper. validateLength (inputs)) {
 			message="Approved";
 			return true;
 			
 		} else {
-			message="You're a bad guy :(";
+			message="Please just 20 characters per field";
 			return false;
 		}
 	}
-
 }

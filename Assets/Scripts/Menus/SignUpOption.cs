@@ -10,6 +10,11 @@ public class SignUpOption : MonoBehaviour {
 	FilterChain filterChain;
 	public bool block=false;
 
+	BusinessDelegate businessService;
+	void Start () {
+		businessService = new BusinessDelegate ();
+	}
+
 	public void renderMainMenu(){
 		InputField u =transform.Find ("User").GetComponent<InputField>();
 		InputField m =transform.Find ("mail").GetComponent<InputField>();
@@ -19,6 +24,7 @@ public class SignUpOption : MonoBehaviour {
 
 		filterChain = new FilterChain ();
 		filterChain.add (new EmptyFieldsFilter(inputs));
+		filterChain.add (new LengthFilter(inputs));
 		filterChain.add (new EmailFilter(m.text));
 		filterChain.add (new ReTypeFilter(p.text,r.text));
 		filterChain.add (new SQLInjectionFilter(inputs));
@@ -27,7 +33,9 @@ public class SignUpOption : MonoBehaviour {
 		if (filterManager.validate ()) {
 			if(!block){
 				block=true;
-				StartCoroutine(BusinessDelegate.signUpService(u.text,p.text,m.text,this.gameObject));
+				UserDTO user = new UserDTO(u.text,p.text,m.text);
+				businessService.setServiceType("signup",user,null, this.gameObject);
+				StartCoroutine(businessService.doTask());
 			}
 		} else {
 			GameObject warningScreen= MenuFactoryMethod.createWarningMenu();
