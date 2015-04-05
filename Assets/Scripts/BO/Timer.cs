@@ -2,20 +2,23 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Timer : MonoBehaviour {
+public static class Timer{
 	private static float timer;
-	public  Text text;
+	public static Text text;
 	// Use this for initialization
-	void Start () {
+	public static void initializeTimer () {
 		timer = 0;
-		text= (Text)this.transform.Find("Text").GetComponent<Text>();
+		text = GameObject.FindGameObjectWithTag ("Timer").GetComponentInChildren<Text>();
+
+//		text= (Text)this.transform.Find("Text").GetComponent<Text>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public static void updateTimer () {
 		timer += Time.deltaTime;
 		string minutes = Mathf.Floor(timer / 60).ToString("00");
 		string seconds = Mathf.Floor(timer % 60).ToString("00");
 		text.text = "Time: "+minutes + ":" + seconds;
+
 	}
 }

@@ -3,11 +3,12 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class LogInOption : MonoBehaviour {
-
+	
 	FilterManager filterManager;
 	FilterChain filterChain;
 	public bool block=false;
 
+	public static InputField u;
 	BusinessDelegate businessService;
 	void Start () {
 		businessService = new BusinessDelegate ();
@@ -15,7 +16,7 @@ public class LogInOption : MonoBehaviour {
 
 
 	public void renderMainMenu(){
-		InputField u =transform.Find ("User").GetComponent<InputField>();
+		u =transform.Find ("User").GetComponent<InputField>();
 		InputField p =transform.Find ("password").GetComponent<InputField>();
 		InputField[] inputs = transform.GetComponentsInChildren<InputField> ();
 
@@ -45,5 +46,6 @@ public class LogInOption : MonoBehaviour {
 		MenuFactoryMethod.createLogInMenu ();
 		Destroy(this.gameObject);
 	}
+
 
 }

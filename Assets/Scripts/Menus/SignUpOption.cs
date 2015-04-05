@@ -10,13 +10,15 @@ public class SignUpOption : MonoBehaviour {
 	FilterChain filterChain;
 	public bool block=false;
 
+	public static InputField u;
+
 	BusinessDelegate businessService;
 	void Start () {
 		businessService = new BusinessDelegate ();
 	}
 
 	public void renderMainMenu(){
-		InputField u =transform.Find ("User").GetComponent<InputField>();
+		u =transform.Find ("User").GetComponent<InputField>();
 		InputField m =transform.Find ("mail").GetComponent<InputField>();
 		InputField p =transform.Find ("password").GetComponent<InputField>();
 		InputField r =transform.Find ("ReTypepassword").GetComponent<InputField>();
@@ -49,5 +51,6 @@ public class SignUpOption : MonoBehaviour {
 	public void renderLogInMenu(){
 		MenuFactoryMethod.createLogInMenu ();
 		Destroy(this.gameObject);
-	}	
+	}
+	
 }

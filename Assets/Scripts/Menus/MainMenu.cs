@@ -9,9 +9,9 @@ public class MainMenu : MonoBehaviour {
 		businessService = new BusinessDelegate ();
 	}
 
-	public void startGame(){
-		Application.LoadLevel (1);
-	}
+//	public void startGame(){
+//		Application.LoadLevel (1);
+//	}
 
 	public void renderScores(){
 		if(!block){

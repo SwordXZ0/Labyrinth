@@ -42,4 +42,7 @@ public class MenuFactoryMethod:MonoBehaviour {
 	public static GameObject createLostMenu(){
 		return Instantiate (Resources.Load("Prefabs/Menu/LostMenu")as GameObject);
 	}
+	public static GameObject createWaitMenu(){
+		return Instantiate (Resources.Load("Prefabs/Menu/WaitMenu")as GameObject);
+	}
 }
