@@ -15,7 +15,7 @@ using Sfs2X.Logging;
 
 public class Connection : MonoBehaviour {
 
-	public int maxPlayers=1;
+	public int maxPlayers=2;
 	//----------------------------------------------------------
 	// Setup variables
 	//----------------------------------------------------------
