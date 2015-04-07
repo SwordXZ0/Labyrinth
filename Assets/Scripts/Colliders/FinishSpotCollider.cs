@@ -10,7 +10,8 @@ public class FinishSpotCollider : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if(other.gameObject.tag.Equals("Player") || other.gameObject.tag.Equals("otherPlayer")){
+//		if(other.gameObject.tag.Equals("Player1")){
+			Debug.Log("collided:)");
 			GameObject timer = GameObject.FindGameObjectWithTag ("Timer");
 //			Timer time = (Timer)timer.transform.GetComponent<Timer> ();
 //			Text elapsed = time.transform.GetComponentInChildren<Text>();
@@ -19,8 +20,8 @@ public class FinishSpotCollider : MonoBehaviour {
 			businessService.setServiceType ("saveScore", null, result, this.gameObject);
 			StartCoroutine(businessService.doTask());
 
-		}
-//		else if(other.gameObject.tag.Equals("otherPlayer")){
+//		}
+//		else if(other.gameObject.tag.Equals("Player2")){
 //
 //		}
 	}

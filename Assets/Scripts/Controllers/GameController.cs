@@ -268,7 +268,7 @@ public class GameController : MonoBehaviour {
 		// Since this is the local player, lets add a controller and fix the camera
 		localPlayer.AddComponent<PlayerController>();
 
-		localPlayer.tag = "Player";
+//		localPlayer.tag = "Player";
 
 		localPlayer.AddComponent<Rigidbody>();
 		localPlayer.GetComponent<Rigidbody> ().useGravity = false;
@@ -304,7 +304,7 @@ public class GameController : MonoBehaviour {
 		// Color and name
 		remotePlayer.GetComponentInChildren<TextMesh>().text = user.Name;
 		remotePlayer.GetComponentInChildren<Renderer>().material = playerMaterials[numMaterial];
-		remotePlayer.tag = "otherPlayer";
+//		remotePlayer.tag = "otherPlayer";
 		
 		// Lets track the dude
 		remotePlayers.Add(user, remotePlayer);
