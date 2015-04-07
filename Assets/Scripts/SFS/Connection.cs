@@ -15,7 +15,7 @@ using Sfs2X.Logging;
 
 public class Connection : MonoBehaviour {
 
-	public int maxPlayers=2;
+//	public short maxPlayers=2;
 	//----------------------------------------------------------
 	// Setup variables
 	//----------------------------------------------------------
@@ -135,7 +135,7 @@ public class Connection : MonoBehaviour {
 			
 		} else {
 			RoomSettings settings = new RoomSettings("Game Room");
-			settings.MaxUsers = (short)maxPlayers;
+			settings.MaxUsers = 2;
 		 
 			smartFox.Send(new CreateRoomRequest(settings, true));
 		}

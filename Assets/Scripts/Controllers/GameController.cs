@@ -90,7 +90,10 @@ public class GameController : MonoBehaviour {
 		}
 		if (!gameStarted) {
 			if (currentRoom != null) {
-				if (currentRoom.UserCount < currentRoom.MaxUsers) {				
+
+
+				if (currentRoom.UserCount < currentRoom.MaxUsers) {	
+
 					if (GameObject.Find ("WaitMenu(Clone)") == null) {
 						
 						waitMenu = MenuFactoryMethod.createWaitMenu ();
@@ -227,24 +230,7 @@ public class GameController : MonoBehaviour {
 		string message = (string)evt.Params["message"];
 //		Debug.Log("[SFS DEBUG] " + message);
 	}
-	
-	
-	//----------------------------------------------------------
-	// Public interface methods for GUI
-	//----------------------------------------------------------
-	
-	public void ChangePlayerMaterial(int numMaterial) {
-		localPlayer.GetComponentInChildren<Renderer>().material = playerMaterials[numMaterial];
-		
-		List<UserVariable> userVariables = new List<UserVariable>();
-		userVariables.Add(new SFSUserVariable("mat", numMaterial));
-		smartFox.Send(new SetUserVariablesRequest(userVariables));
-	}
-	
-	public void ChangePlayerModel(int numModel) {
-		SpawnLocalPlayer(numModel, smartFox.MySelf.GetVariable("mat").GetIntValue() );
-	}
-	
+
 	//----------------------------------------------------------
 	// Private player helper methods
 	//----------------------------------------------------------
