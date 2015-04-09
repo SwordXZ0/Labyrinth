@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour {
 
 
 	private bool gameStarted;
+	public static bool	gameFinished;
 	private GameObject waitMenu;
 	//----------------------------------------------------------
 	// Setup variables
@@ -21,8 +22,12 @@ public class GameController : MonoBehaviour {
 	public GameObject[] spawnPoints;
 	public GameObject[] playerModels;
 	public Material[] playerMaterials;
+
+
+	private List<SFSUser> roomUsers;
+
 	public LogLevel logLevel = LogLevel.DEBUG;
-	
+
 	// Internal / private variables
 	private SmartFox smartFox;
 	
@@ -35,7 +40,7 @@ public class GameController : MonoBehaviour {
 	// Unity callbacks
 	//----------------------------------------------------------
 	void Start() {
-		
+		roomUsers= new List<SFSUser>();
 		if (!SmartFoxConnection.IsInitialized) {
 			Application.LoadLevel(0);
 			return;
@@ -81,6 +86,18 @@ public class GameController : MonoBehaviour {
 	
 	void Update(){
 
+		if (gameFinished) {
+//			localPlayer.SetActive (false);
+			Debug.Log("todos los users"+currentRoom.UserCount);
+			foreach (SFSUser user in roomUsers) {
+				Debug.Log("contiene "+user.Name+"="+currentRoom.ContainsUser(user));
+				RemoveRemotePlayer (user);
+				Debug.Log("contiene "+user.Name+"="+currentRoom.ContainsUser(user));
+			}
+			Debug.Log("sin remotes"+currentRoom.UserCount);
+			RemoveLocalPlayer ();
+
+		}
 
 
 		if (Input.GetKeyDown (KeyCode.P)) {
@@ -90,7 +107,6 @@ public class GameController : MonoBehaviour {
 		}
 		if (!gameStarted) {
 			if (currentRoom != null) {
-
 
 				if (currentRoom.UserCount < currentRoom.MaxUsers) {	
 
@@ -120,6 +136,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 	
+
 	void OnApplicationQuit() {
 		// Before leaving, lets notify the others about this client dropping out
 		PlayerPrefs.DeleteKey("session");
@@ -138,6 +155,8 @@ public class GameController : MonoBehaviour {
 	
 	public void OnUserEnterRoom(BaseEvent evt) {
 		// User joined - and we might be standing still (not sending position info). So lets send him our position info
+
+		SFSUser user = (SFSUser)evt.Params["user"];		
 		if (localPlayer != null) {
 			List<UserVariable> userVariables = new List<UserVariable>();
 			userVariables.Add(new SFSUserVariable("x", (double)localPlayer.transform.position.x));
@@ -148,6 +167,8 @@ public class GameController : MonoBehaviour {
 			userVariables.Add(new SFSUserVariable("mat", smartFox.MySelf.GetVariable("mat").GetIntValue()));
 			smartFox.Send(new SetUserVariablesRequest(userVariables));
 		}
+
+		roomUsers.Add (user);
 	}
 	
 	public void OnConnectionLost(BaseEvent evt) {	
@@ -227,7 +248,7 @@ public class GameController : MonoBehaviour {
 	}
 	
 	public void OnDebugMessage(BaseEvent evt) {
-		string message = (string)evt.Params["message"];
+//		string message = (string)evt.Params["message"];
 //		Debug.Log("[SFS DEBUG] " + message);
 	}
 
@@ -268,7 +289,8 @@ public class GameController : MonoBehaviour {
 		// Since this is the local player, lets add a controller and fix the camera
 		localPlayer.AddComponent<PlayerController>();
 
-//		localPlayer.tag = "Player";
+		localPlayer.tag = "Player1";
+		localPlayer.transform.GetChild (0).tag="Player1";
 
 		localPlayer.AddComponent<Rigidbody>();
 		localPlayer.GetComponent<Rigidbody> ().useGravity = false;
@@ -304,7 +326,13 @@ public class GameController : MonoBehaviour {
 		// Color and name
 		remotePlayer.GetComponentInChildren<TextMesh>().text = user.Name;
 		remotePlayer.GetComponentInChildren<Renderer>().material = playerMaterials[numMaterial];
-//		remotePlayer.tag = "otherPlayer";
+		remotePlayer.tag = "Player2";
+		remotePlayer.transform.GetChild (0).tag="Player2";
+
+		remotePlayer.AddComponent<Rigidbody>();
+		remotePlayer.GetComponent<Rigidbody> ().useGravity = false;
+		remotePlayer.GetComponent<Rigidbody> ().constraints =  RigidbodyConstraints.FreezePositionY| RigidbodyConstraints.FreezeRotation;
+		//		localPlayer.AddComponent<CharacterController> ();
 		
 		// Lets track the dude
 		remotePlayers.Add(user, remotePlayer);

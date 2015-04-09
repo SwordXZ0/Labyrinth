@@ -27,7 +27,7 @@ public class Connection : MonoBehaviour {
 	// Internal / private variables
 	private SmartFox smartFox;
 	private string username = "";
-	private string loginErrorMessage = "";
+//	private string loginErrorMessage = "";
 	private string serverConnectionStatusMessage = "";
 	private bool isJoining = false;
 	
@@ -35,6 +35,7 @@ public class Connection : MonoBehaviour {
 	// Called when program starts
 	//----------------------------------------------------------
 	void Start() {
+		serverConnectionStatusMessage += "";
 		// In a webplayer (or editor in webplayer mode) we need to setup security policy negotiation with the server first
 		if (Application.isWebPlayer) {
 			if (!Security.PrefetchSocketPolicy(serverName, serverPort, 500)) {
@@ -58,12 +59,12 @@ public class Connection : MonoBehaviour {
 		smartFox.Connect(serverName, serverPort);
 
 		if (GameObject.Find ("StartGame")) {
-			if (!LogInOption.u.Equals ("")) {
-				username =LogInOption.u.text;
-			}
-			else if (!SignUpOption.u.Equals ("")) {
-				username = SignUpOption.u.text;
-			}
+
+				username =PlayerPrefs.GetString("session");
+
+//			else if (!SignUpOption.u.Equals ("")) {
+//				username = SignUpOption.u.text;
+//			}
 
 			GameObject.Find ("StartGame").GetComponent<UnityEngine.UI.Button> ().onClick.AddListener (() => {
 				Debug.Log("Sending login request");
@@ -159,7 +160,7 @@ public class Connection : MonoBehaviour {
 	}
 	
 	public void OnDebugMessage(BaseEvent evt) {
-		string message = (string)evt.Params["message"];
+//		string message = (string)evt.Params["message"];
 //		Debug.Log("[SFS DEBUG] " + message);
 	}
 
