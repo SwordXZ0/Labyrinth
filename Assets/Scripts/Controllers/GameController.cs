@@ -87,15 +87,16 @@ public class GameController : MonoBehaviour {
 	void Update(){
 
 		if (gameFinished) {
+			Debug.Log("game finished");
 //			localPlayer.SetActive (false);
-			Debug.Log("todos los users"+currentRoom.UserCount);
-			foreach (SFSUser user in roomUsers) {
-				Debug.Log("contiene "+user.Name+"="+currentRoom.ContainsUser(user));
-				RemoveRemotePlayer (user);
-				Debug.Log("contiene "+user.Name+"="+currentRoom.ContainsUser(user));
-			}
-			Debug.Log("sin remotes"+currentRoom.UserCount);
-			RemoveLocalPlayer ();
+//			Debug.Log("todos los users"+currentRoom.UserCount);
+//			foreach (SFSUser user in roomUsers) {
+//				Debug.Log("contiene "+user.Name+"="+currentRoom.ContainsUser(user));
+//				RemoveRemotePlayer (user);
+//				Debug.Log("contiene "+user.Name+"="+currentRoom.ContainsUser(user));
+//			}
+//			Debug.Log("sin remotes"+currentRoom.UserCount);
+//			RemoveLocalPlayer ();
 
 		}
 
