@@ -11,6 +11,7 @@ using Sfs2X.Core;
 using Sfs2X.Entities;
 using Sfs2X.Requests;
 using Sfs2X.Logging;
+using Sfs2X.Entities.Variables;
 
 
 public class Connection : MonoBehaviour {
@@ -22,6 +23,9 @@ public class Connection : MonoBehaviour {
 	public string serverName = "127.0.0.1";
 	public int serverPort = 9933;
 	public string zone = "BasicExamples";
+	public string genericRoomName = "GameRoom";
+	
+//	public string zone = "Labyrinth";
 	public LogLevel logLevel = LogLevel.DEBUG;
 
 	// Internal / private variables
@@ -30,7 +34,10 @@ public class Connection : MonoBehaviour {
 //	private string loginErrorMessage = "";
 	private string serverConnectionStatusMessage = "";
 	private bool isJoining = false;
-	
+
+	private List<Room> roomList = new List<Room>();
+	private int roomId;
+
 	//----------------------------------------------------------
 	// Called when program starts
 	//----------------------------------------------------------
@@ -52,11 +59,13 @@ public class Connection : MonoBehaviour {
 		smartFox.AddEventListener(SFSEvent.LOGIN, OnLogin);
 		smartFox.AddEventListener(SFSEvent.LOGIN_ERROR, OnLoginError);
 		smartFox.AddEventListener(SFSEvent.ROOM_JOIN, OnRoomJoin);
+		smartFox.AddEventListener(SFSEvent.ROOM_CREATION_ERROR,OnRoomCreationError);
 		smartFox.AddEventListener(SFSEvent.LOGOUT, OnLogout);
 
 		smartFox.AddLogListener(logLevel, OnDebugMessage);
 		
 		smartFox.Connect(serverName, serverPort);
+
 
 		if (GameObject.Find ("StartGame")) {
 
@@ -111,6 +120,15 @@ public class Connection : MonoBehaviour {
 
 		if (success) {
 			SmartFoxConnection.Connection = smartFox;
+
+			roomList = SmartFoxConnection.Connection.RoomList;
+;
+			Debug.Log ("____CONNECTION");
+			foreach(Room room in SmartFoxConnection.Connection.RoomList){
+				Debug.Log("____CONNECTIONroom list roomName  =  "+room.Name);
+				Debug.Log("____CONNECTIONroom list roomId  =  "+room.Id);
+				
+			}
 			
 			serverConnectionStatusMessage = "Connection succesful!";
 		} else {
@@ -129,22 +147,83 @@ public class Connection : MonoBehaviour {
 
 	public void OnLogin(BaseEvent evt) {
 		Debug.Log("Logged in successfully");
-		
+
+		roomId = 1;
+		bool roomJoined = false;
 		// We either create the Game Room or join it if it exists already
-		if (smartFox.RoomManager.ContainsRoom("Game Room")) {
-			smartFox.Send(new JoinRoomRequest("Game Room"));
-			
-		} else {
-			RoomSettings settings = new RoomSettings("Game Room");
-			settings.MaxUsers = 2;
-		 
-			smartFox.Send(new CreateRoomRequest(settings, true));
+//		foreach (Room room in roomList) {
+//
+//			Debug.Log("mi roomID = "+roomId);
+////			if (SmartFoxConnection.Connection.RoomManager.ContainsRoom (room.Name) && room.UserCount != room.MaxUsers) {
+//			if (smartFox.RoomManager.ContainsRoom (room.Name)) {
+//				Debug.Log("room name = "+ room.Name);
+//				Debug.Log("room server set id = "+ room.Id);
+//				smartFox.Send (new JoinRoomRequest (room.Name));
+////				SmartFoxConnection.Connection.Send (new JoinRoomRequest (room.Name));
+//				roomExists = true;
+//				break;
+//			}
+//
+//			roomId++;
+////			roomId = room.Id;
+//			Debug.Log("despues de la suma  mi id  = "+roomId);
+//
+//		}
+		if (smartFox.RoomManager.ContainsRoom (genericRoomName+roomId)) {
+
+			Room room = smartFox.RoomManager.GetRoomByName(genericRoomName+roomId);
+			Debug.Log("room name = "+ room.Name);
+			Debug.Log("room server set id = "+ room.Id);
+			if(room.UserCount<room.MaxUsers){
+				smartFox.Send (new JoinRoomRequest (room.Name));
+				roomJoined = true;
+			}
 		}
+		if(!roomJoined){
+//			RoomSettings settings = new RoomSettings("Game Room");
+			RoomSettings settings = new RoomSettings(genericRoomName+roomId);
+			settings.MaxUsers = 2;
+			settings.IsGame = true;
+			bool gameFinished = false;
+			SFSRoomVariable gameFinishedVar = new SFSRoomVariable("gameFinished",gameFinished);
+			settings.Variables.Add(gameFinishedVar);
+			Debug.Log("new game name = "+settings.Name);
+			smartFox.Send(new CreateRoomRequest(settings, true));
+//			SmartFoxConnection.Connection.Send(new CreateRoomRequest(settings, true));
+		}
+
+//		if (smartFox.RoomManager.ContainsRoom("Game Room")) {
+//			smartFox.Send(new JoinRoomRequest("Game Room"));
+//			
+//		} else {
+//			RoomSettings settings = new RoomSettings("Game Room");
+//			settings.MaxUsers = 2;
+//		 
+//			smartFox.Send(new CreateRoomRequest(settings, true));
+//		}
 	}
 
 	public void OnLoginError(BaseEvent evt) {
 		Debug.Log("Login error: "+(string)evt.Params["errorMessage"]);
 	}
+
+	public void OnRoomCreationError(BaseEvent evt){
+		string error = (string)evt.Params["errorMessage"];
+		short errorCode = (short)evt.Params["errorCode"];
+		Debug.Log("Error creating room = "+error+" CODE "+errorCode);
+		if (errorCode == 12) {
+			roomId++;
+			RoomSettings settings = new RoomSettings(genericRoomName+roomId);
+			settings.MaxUsers = 1;
+			settings.IsGame = true;
+			bool gameFinished = false;
+			SFSRoomVariable gameFinishedVar = new SFSRoomVariable("gameFinished",gameFinished);
+			settings.Variables.Add(gameFinishedVar);
+			Debug.Log("new game name = "+settings.Name);
+			smartFox.Send(new CreateRoomRequest(settings, true));
+		}
+	}
+
 	
 	public void OnRoomJoin(BaseEvent evt) {
 		Debug.Log("Joined room successfully");

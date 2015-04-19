@@ -1,0 +1,585 @@
+Initialize engine version: 5.0.0f4 (5b98b70ebeb9)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: Intel(R) HD Graphics 4000 (ID=0x166)
+    Vendor:   Intel
+    VRAM:     128 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\SmartFox2X.dll (this message is harmless)
+Loading C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\SmartFox2X.dll into Unity Child Domain
+Platform assembly: C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\ProBuilderCore-Unity5.dll (this message is harmless)
+Loading C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\ProBuilderCore-Unity5.dll into Unity Child Domain
+Platform assembly: C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\ProBuilderMeshOps-Unity5.dll (this message is harmless)
+Loading C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\ProBuilderMeshOps-Unity5.dll into Unity Child Domain
+Platform assembly: C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\ProCore.dll (this message is harmless)
+Loading C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\ProCore.dll into Unity Child Domain
+Platform assembly: C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\pb_Profiler.dll (this message is harmless)
+Loading C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\pb_Profiler.dll into Unity Child Domain
+- Completed reload, in  0.171 seconds
+desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
+<RI> Initializing input.
+XInput1_3.dll not found.
+<RI> Input initialized.
+<RI> Initialized touch support.
+Platform assembly: C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\1p_Data\Managed\System.dll (this message is harmless)
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 1764 -> priority: 1 
+  Thread -> id: c70 -> priority: 1 
+[SFS - DEBUG] Writing message Binary Size: 35
+12 00 03 00 03 61 70 69 08 00 05 31 2e 34 2e 30 	.....api...1.4.0
+00 02 63 6c 08 00 05 55 6e 69 74 79 00 03 62 69 	..cl...Unity..bi
+6e 01 01                                        	n..             
+
+[SFS - INFO] Data written: Binary Size: 52
+12 00 03 00 01 63 02 00 00 01 61 03 00 00 00 01 	.....c....a.....
+70 12 00 03 00 03 61 70 69 08 00 05 31 2e 34 2e 	p.....api...1.4.
+30 00 02 63 6c 08 00 05 55 6e 69 74 79 00 03 62 	0..cl...Unity..b
+69 6e 01 01                                     	in..            
+
+[SFS - INFO] Data Read: Binary Size: 80
+80 00 4d 12 00 03 00 01 61 03 00 00 00 01 63 02 	..M.....a.....c.
+00 00 01 70 12 00 03 00 02 74 6b 08 00 20 34 62 	...p.....tk...4b
+30 39 36 36 64 33 36 34 63 38 64 31 65 32 63 63 	0966d364c8d1e2cc
+31 35 30 64 65 61 38 62 63 31 63 61 30 35 00 02 	150dea8bc1ca05..
+63 74 04 00 00 04 00 00 02 6d 73 04 00 0f 42 40 	ct.......ms...B@
+
+[SFS - DEBUG] Handling New Packet of size 80
+[SFS - DEBUG] Handling Header Size. Length: 79 (small)
+[SFS - DEBUG] Data size is 77
+[SFS - DEBUG] Handling Data: 77, previous state: 0/77
+[SFS - DEBUG] <<< Packet Complete >>>
+Decoding object a
+SHORT
+Decoding object c
+BYTE
+Decoding object p
+SFS_OBJECT
+Decoding object tk
+UTF_STRING
+Decoding object ct
+INT
+Decoding object ms
+INT
+[SFS - INFO] Message: Handshake { Message id: 0 }
+{ Dump: }
+
+	(utf_string) tk: 4b0966d364c8d1e2cc150dea8bc1ca05
+	(int) ct: 1024
+	(int) ms: 1000000
+
+[SFS - DEBUG] Handshake response: tk => 4b0966d364c8d1e2cc150dea8bc1ca05, ct => 1024
+On Connection callback got: True (error : <>)
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+Connection:OnConnection(BaseEvent) (at C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\Assets\Scripts\SFS\Connection.cs:119)
+Sfs2X.Core.EventDispatcher:DispatchEvent(BaseEvent)
+Sfs2X.SmartFox:ProcessEvents()
+Connection:FixedUpdate() (at C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\Assets\Scripts\SFS\Connection.cs:95)
+ 
+(Filename: C:/Users/Sergio/Documents/UnityProjects/proyectoArqSoftware/Labyrinth/Assets/Scripts/SFS/Connection.cs Line: 119)
+
+____CONNECTION
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+Connection:OnConnection(BaseEvent) (at C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\Assets\Scripts\SFS\Connection.cs:126)
+Sfs2X.Core.EventDispatcher:DispatchEvent(BaseEvent)
+Sfs2X.SmartFox:ProcessEvents()
+Connection:FixedUpdate() (at C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\Assets\Scripts\SFS\Connection.cs:95)
+ 
+(Filename: C:/Users/Sergio/Documents/UnityProjects/proyectoArqSoftware/Labyrinth/Assets/Scripts/SFS/Connection.cs Line: 126)
+
+Sending login request
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+Connection:<Start>m__0() (at C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\Assets\Scripts\SFS\Connection.cs:79)
+UnityEngine.Events.InvokableCall:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:110)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:574)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:716)
+UnityEngine.Events.UnityEvent:Invoke() (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_0.cs:53)
+UnityEngine.UI.Button:Press() (at C:\buildslave\unity\build\Extensions\guisystem\UnityEngine.UI\UI\Core\Button.cs:35)
+UnityEngine.UI.Button:OnPointerClick(PointerEventData) (at C:\buildslave\unity\build\Extensions\guisystem\UnityEngine.UI\UI\Core\Button.cs:44)
+UnityEngine.EventSystems.ExecuteEvents:Execute(IPointerClickHandler, BaseEventData) (at C:\buildslave\unity\build\Extensions\guisystem\UnityEngine.UI\EventSystem\ExecuteEvents.cs:52)
+UnityEngine.EventSystems.ExecuteEvents:Execute(GameObject, BaseEventData, EventFunction`1) (at C:\buildslave\unity\build\Extensions\guisystem\UnityEngine.UI\EventSystem\ExecuteEvents.cs:269)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMousePress(MouseButtonEventData) (at C:\buildslave\unity\build\Extensions\guisystem\UnityEngine.UI\EventSystem\InputModules\StandaloneInputModule.cs:358)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent() (at C:\buildslave\unity\build\Extensions\guisystem\UnityEngine.UI\EventSystem\InputModules\StandaloneInputModule.cs:249)
+UnityEngine.EventSystems.StandaloneInputModule:Process() (at C:\buildslave\unity\build\Extensions\guisystem\UnityEngine.UI\EventSystem\InputModules\StandaloneInputModule.cs:160)
+UnityEngine.EventSystems.EventSystem:Update() (at C:\buildslave\unity\build\Extensions\guisystem\UnityEngine.UI\EventSystem\EventSystem.cs:272)
+ 
+(Filename: C:/Users/Sergio/Documents/UnityProjects/proyectoArqSoftware/Labyrinth/Assets/Scripts/SFS/Connection.cs Line: 79)
+
+[SFS - DEBUG] Writing message Binary Size: 40
+12 00 03 00 02 7a 6e 08 00 0d 42 61 73 69 63 45 	.....zn...BasicE
+78 61 6d 70 6c 65 73 00 02 75 6e 08 00 03 64 61 	xamples..un...da
+73 00 02 70 77 08 00 00                         	s..pw...        
+
+[SFS - INFO] Data written: Binary Size: 57
+12 00 03 00 01 63 02 00 00 01 61 03 00 01 00 01 	.....c....a.....
+70 12 00 03 00 02 7a 6e 08 00 0d 42 61 73 69 63 	p.....zn...Basic
+45 78 61 6d 70 6c 65 73 00 02 75 6e 08 00 03 64 	Examples..un...d
+61 73 00 02 70 77 08 00 00                      	as..pw...       
+
+[SFS - INFO] Data Read: Binary Size: 128
+80 00 7d 12 00 03 00 01 61 03 00 01 00 01 63 02 	..}.....a.....c.
+00 00 01 70 12 00 06 00 02 72 6c 11 00 01 11 00 	...p.....rl.....
+09 04 00 00 00 00 08 00 09 54 68 65 20 4c 6f 62 	.........The.Lob
+62 79 08 00 07 64 65 66 61 75 6c 74 01 00 01 00 	by...default....
+01 00 03 00 00 03 00 96 11 00 00 00 02 7a 6e 08 	.............zn.
+00 0d 42 61 73 69 63 45 78 61 6d 70 6c 65 73 00 	..BasicExamples.
+02 72 73 03 00 00 00 02 75 6e 08 00 03 64 61 73 	.rs.....un...das
+00 02 69 64 04 00 00 00 39 00 02 70 69 03 00 00 	..id....9..pi...
+
+[SFS - DEBUG] Handling New Packet of size 128
+[SFS - DEBUG] Handling Header Size. Length: 127 (small)
+[SFS - DEBUG] Data size is 125
+[SFS - DEBUG] Handling Data: 125, previous state: 0/125
+[SFS - DEBUG] <<< Packet Complete >>>
+Decoding object a
+SHORT
+Decoding object c
+BYTE
+Decoding object p
+SFS_OBJECT
+Decoding object rl
+SFS_ARRAY
+SFS_ARRAY
+INT
+UTF_STRING
+UTF_STRING
+BOOL
+BOOL
+BOOL
+SHORT
+SHORT
+SFS_ARRAY
+Decoding object zn
+UTF_STRING
+Decoding object rs
+SHORT
+Decoding object un
+UTF_STRING
+Decoding object id
+INT
+Decoding object pi
+SHORT
+[SFS - INFO] Message: Login { Message id: 1 }
+{ Dump: }
+
+	(sfs_array) rl: 
+		(sfs_array) 
+			(int) 0
+			(utf_string) The Lobby
+			(utf_string) default
+			(bool) False
+			(bool) False
+			(bool) False
+			(short) 0
+			(short) 150
+			(sfs_array) 
+				
+			
+		
+	
+	(utf_string) zn: BasicExamples
+	(short) rs: 0
+	(utf_string) un: das
+	(int) id: 57
+	(short) pi: 0
+
+User duplicate NOT FOUND. Adding as new
+Logged in successfully
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+Connection:OnLogin(BaseEvent) (at C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\Assets\Scripts\SFS\Connection.cs:149)
+Sfs2X.Core.EventDispatcher:DispatchEvent(BaseEvent)
+Sfs2X.SmartFox:ProcessEvents()
+Connection:FixedUpdate() (at C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\Assets\Scripts\SFS\Connection.cs:95)
+ 
+(Filename: C:/Users/Sergio/Documents/UnityProjects/proyectoArqSoftware/Labyrinth/Assets/Scripts/SFS/Connection.cs Line: 149)
+
+new game name = GameRoom1
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+Connection:OnLogin(BaseEvent) (at C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\Assets\Scripts\SFS\Connection.cs:190)
+Sfs2X.Core.EventDispatcher:DispatchEvent(BaseEvent)
+Sfs2X.SmartFox:ProcessEvents()
+Connection:FixedUpdate() (at C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\Assets\Scripts\SFS\Connection.cs:95)
+ 
+(Filename: C:/Users/Sergio/Documents/UnityProjects/proyectoArqSoftware/Labyrinth/Assets/Scripts/SFS/Connection.cs Line: 190)
+
+[SFS - DEBUG] Writing message Binary Size: 103
+12 00 09 00 01 6e 08 00 09 47 61 6d 65 52 6f 6f 	.....n...GameRoo
+6d 31 00 01 67 08 00 07 64 65 66 61 75 6c 74 00 	m1..g...default.
+01 70 08 00 00 00 02 69 67 01 01 00 02 6d 75 03 	.p.....ig....mu.
+00 01 00 02 6d 73 03 00 00 00 02 6d 76 03 00 05 	....ms.....mv...
+00 02 72 76 11 00 01 11 00 05 08 00 0c 67 61 6d 	..rv.........gam
+65 46 69 6e 69 73 68 65 64 02 01 01 00 01 00 01 	eFinished.......
+00 00 02 61 6a 01 01                            	...aj..         
+
+[SFS - INFO] Data written: Binary Size: 120
+12 00 03 00 01 63 02 00 00 01 61 03 00 06 00 01 	.....c....a.....
+70 12 00 09 00 01 6e 08 00 09 47 61 6d 65 52 6f 	p.....n...GameRo
+6f 6d 31 00 01 67 08 00 07 64 65 66 61 75 6c 74 	om1..g...default
+00 01 70 08 00 00 00 02 69 67 01 01 00 02 6d 75 	..p.....ig....mu
+03 00 01 00 02 6d 73 03 00 00 00 02 6d 76 03 00 	.....ms.....mv..
+05 00 02 72 76 11 00 01 11 00 05 08 00 0c 67 61 	...rv.........ga
+6d 65 46 69 6e 69 73 68 65 64 02 01 01 00 01 00 	meFinished......
+01 00 00 02 61 6a 01 01                         	....aj..        
+
+[SFS - INFO] Data Read: Binary Size: 77
+80 00 4a 12 00 03 00 01 61 03 00 06 00 01 63 02 	..J.....a.....c.
+00 00 01 70 12 00 01 00 01 72 11 00 0b 04 00 00 	...p.....r......
+00 29 08 00 09 47 61 6d 65 52 6f 6f 6d 31 08 00 	.)...GameRoom1..
+07 64 65 66 61 75 6c 74 01 01 01 00 01 00 03 00 	.default........
+00 03 00 01 11 00 00 03 00 00 03 00 00          	.............   
+
+[SFS - DEBUG] Handling New Packet of size 77
+[SFS - DEBUG] Handling Header Size. Length: 76 (small)
+[SFS - DEBUG] Data size is 74
+[SFS - DEBUG] Handling Data: 74, previous state: 0/74
+[SFS - DEBUG] <<< Packet Complete >>>
+Decoding object a
+SHORT
+Decoding object c
+BYTE
+Decoding object p
+SFS_OBJECT
+Decoding object r
+SFS_ARRAY
+INT
+UTF_STRING
+UTF_STRING
+BOOL
+BOOL
+BOOL
+SHORT
+SHORT
+SFS_ARRAY
+SHORT
+SHORT
+[SFS - INFO] Message: CreateRoom { Message id: 6 }
+{ Dump: }
+
+	(sfs_array) r: 
+		(int) 41
+		(utf_string) GameRoom1
+		(utf_string) default
+		(bool) True
+		(bool) False
+		(bool) False
+		(short) 0
+		(short) 1
+		(sfs_array) 
+			
+		
+		(short) 0
+		(short) 0
+	
+
+[SFS - INFO] Data Read: Binary Size: 133
+80 00 82 12 00 03 00 01 61 03 00 04 00 01 63 02 	........a.....c.
+00 00 01 70 12 00 02 00 01 72 11 00 0b 04 00 00 	...p.....r......
+00 29 08 00 09 47 61 6d 65 52 6f 6f 6d 31 08 00 	.)...GameRoom1..
+07 64 65 66 61 75 6c 74 01 01 01 00 01 00 03 00 	.default........
+01 03 00 01 11 00 01 11 00 05 08 00 0c 67 61 6d 	.............gam
+65 46 69 6e 69 73 68 65 64 02 01 01 00 01 00 01 	eFinished.......
+00 03 00 00 03 00 00 00 02 75 6c 11 00 01 11 00 	.........ul.....
+05 04 00 00 00 39 08 00 03 64 61 73 03 00 00 03 	.....9...das....
+00 01 11 00 00                                  	.....           
+
+[SFS - DEBUG] Handling New Packet of size 133
+[SFS - DEBUG] Handling Header Size. Length: 132 (small)
+[SFS - DEBUG] Data size is 130
+[SFS - DEBUG] Handling Data: 130, previous state: 0/130
+[SFS - DEBUG] <<< Packet Complete >>>
+Decoding object a
+SHORT
+Decoding object c
+BYTE
+Decoding object p
+SFS_OBJECT
+Decoding object r
+SFS_ARRAY
+INT
+UTF_STRING
+UTF_STRING
+BOOL
+BOOL
+BOOL
+SHORT
+SHORT
+SFS_ARRAY
+SFS_ARRAY
+UTF_STRING
+BYTE
+BOOL
+BOOL
+BOOL
+SHORT
+SHORT
+Decoding object ul
+SFS_ARRAY
+SFS_ARRAY
+INT
+UTF_STRING
+SHORT
+SHORT
+SFS_ARRAY
+[SFS - INFO] Message: JoinRoom { Message id: 4 }
+{ Dump: }
+
+	(sfs_array) r: 
+		(int) 41
+		(utf_string) GameRoom1
+		(utf_string) default
+		(bool) True
+		(bool) False
+		(bool) False
+		(short) 1
+		(short) 1
+		(sfs_array) 
+			(sfs_array) 
+				(utf_string) gameFinished
+				(byte) 1
+				(bool) False
+				(bool) False
+				(bool) False
+			
+		
+		(short) 0
+		(short) 0
+	
+	(sfs_array) ul: 
+		(sfs_array) 
+			(int) 57
+			(utf_string) das
+			(short) 0
+			(short) 1
+			(sfs_array) 
+				
+			
+		
+	
+
+User duplicate FOUND. Incrementing value
+Joined room successfully
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+Connection:OnRoomJoin(BaseEvent) (at C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\Assets\Scripts\SFS\Connection.cs:229)
+Sfs2X.Core.EventDispatcher:DispatchEvent(BaseEvent)
+Sfs2X.SmartFox:ProcessEvents()
+Connection:FixedUpdate() (at C:\Users\Sergio\Documents\UnityProjects\proyectoArqSoftware\Labyrinth\Assets\Scripts\SFS\Connection.cs:95)
+ 
+(Filename: C:/Users/Sergio/Documents/UnityProjects/proyectoArqSoftware/Labyrinth/Assets/Scripts/SFS/Connection.cs Line: 229)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 6.750554 ms
+[SFS - INFO] Data Read: Binary Size: 45
+80 00 2a 12 00 03 00 01 61 03 03 e9 00 01 63 02 	..*.....a.....c.
+00 00 01 70 12 00 03 00 01 72 04 00 00 00 29 00 	...p.....r....).
+02 75 63 03 00 01 00 02 73 63 03 00 00          	.uc.....sc...   
+
+[SFS - DEBUG] Handling New Packet of size 45
+[SFS - DEBUG] Handling Header Size. Length: 44 (small)
+[SFS - DEBUG] Data size is 42
+[SFS - DEBUG] Handling Data: 42, previous state: 0/42
+[SFS - DEBUG] <<< Packet Complete >>>
+Decoding object a
+SHORT
+Decoding object c
+BYTE
+Decoding object p
+SFS_OBJECT
+Decoding object r
+INT
+Decoding object uc
+SHORT
+Decoding object sc
+SHORT
+[SFS - INFO] Message: 1001 { Message id: 1001 }
+{ Dump: }
+
+	(int) r: 41
+	(short) uc: 1
+	(short) sc: 0
+
+System memory in use before: 37.8 MB.
+System memory in use after: 37.8 MB.
+
+Unloading 159 unused Assets to reduce memory usage. Loaded Objects now: 3785.
+Total: 2.137883 ms (FindLiveObjects: 0.365907 ms CreateObjectMapping: 0.241856 ms MarkObjects: 1.177152 ms  DeleteObjects: 0.351182 ms)
+
+[SFS - DEBUG] Writing message Binary Size: 44
+12 00 01 00 02 76 6c 11 00 02 11 00 03 08 00 05 	.....vl.........
+6d 6f 64 65 6c 02 02 04 00 00 00 01 11 00 03 08 	model...........
+00 03 6d 61 74 02 02 04 00 00 00 00             	..mat.......    
+
+[SFS - INFO] Data written: Binary Size: 61
+12 00 03 00 01 63 02 00 00 01 61 03 00 0c 00 01 	.....c....a.....
+70 12 00 01 00 02 76 6c 11 00 02 11 00 03 08 00 	p.....vl........
+05 6d 6f 64 65 6c 02 02 04 00 00 00 01 11 00 03 	.model..........
+08 00 03 6d 61 74 02 02 04 00 00 00 00          	...mat.......   
+
+[SFS - INFO] Data Read: Binary Size: 72
+80 00 45 12 00 03 00 01 61 03 00 0c 00 01 63 02 	..E.....a.....c.
+00 00 01 70 12 00 02 00 01 75 04 00 00 00 39 00 	...p.....u....9.
+02 76 6c 11 00 02 11 00 03 08 00 05 6d 6f 64 65 	.vl.........mode
+6c 02 02 04 00 00 00 01 11 00 03 08 00 03 6d 61 	l.............ma
+74 02 02 04 00 00 00 00                         	t.......        
+
+[SFS - DEBUG] Handling New Packet of size 72
+[SFS - DEBUG] Handling Header Size. Length: 71 (small)
+[SFS - DEBUG] Data size is 69
+[SFS - DEBUG] Handling Data: 69, previous state: 0/69
+[SFS - DEBUG] <<< Packet Complete >>>
+Decoding object a
+SHORT
+Decoding object c
+BYTE
+Decoding object p
+SFS_OBJECT
+Decoding object u
+INT
+Decoding object vl
+SFS_ARRAY
+SFS_ARRAY
+UTF_STRING
+BYTE
+INT
+SFS_ARRAY
+UTF_STRING
+BYTE
+INT
+[SFS - INFO] Message: SetUserVariables { Message id: 12 }
+{ Dump: }
+
+	(int) u: 57
+	(sfs_array) vl: 
+		(sfs_array) 
+			(utf_string) model
+			(byte) 2
+			(int) 1
+		
+		(sfs_array) 
+			(utf_string) mat
+			(byte) 2
+			(int) 0
+		
+	
+
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 1228 -> priority: 1 
+  Thread -> id: 27a0 -> priority: 1 
+[SFS - INFO] Data Read: Binary Size: 77
+80 00 4a 12 00 03 00 01 61 03 00 06 00 01 63 02 	..J.....a.....c.
+00 00 01 70 12 00 01 00 01 72 11 00 0b 04 00 00 	...p.....r......
+00 2a 08 00 09 47 61 6d 65 52 6f 6f 6d 32 08 00 	.*...GameRoom2..
+07 64 65 66 61 75 6c 74 01 01 01 00 01 00 03 00 	.default........
+00 03 00 01 11 00 00 03 00 00 03 00 00          	.............   
+
+[SFS - DEBUG] Handling New Packet of size 77
+[SFS - DEBUG] Handling Header Size. Length: 76 (small)
+[SFS - DEBUG] Data size is 74
+[SFS - DEBUG] Handling Data: 74, previous state: 0/74
+[SFS - DEBUG] <<< Packet Complete >>>
+Decoding object a
+SHORT
+Decoding object c
+BYTE
+Decoding object p
+SFS_OBJECT
+Decoding object r
+SFS_ARRAY
+INT
+UTF_STRING
+UTF_STRING
+BOOL
+BOOL
+BOOL
+SHORT
+SHORT
+SFS_ARRAY
+SHORT
+SHORT
+[SFS - INFO] Message: CreateRoom { Message id: 6 }
+{ Dump: }
+
+	(sfs_array) r: 
+		(int) 42
+		(utf_string) GameRoom2
+		(utf_string) default
+		(bool) True
+		(bool) False
+		(bool) False
+		(short) 0
+		(short) 1
+		(sfs_array) 
+			
+		
+		(short) 0
+		(short) 0
+	
+
+[SFS - INFO] Data Read: Binary Size: 45
+80 00 2a 12 00 03 00 01 61 03 03 e9 00 01 63 02 	..*.....a.....c.
+00 00 01 70 12 00 03 00 01 72 04 00 00 00 2a 00 	...p.....r....*.
+02 75 63 03 00 01 00 02 73 63 03 00 00          	.uc.....sc...   
+
+[SFS - DEBUG] Handling New Packet of size 45
+[SFS - DEBUG] Handling Header Size. Length: 44 (small)
+[SFS - DEBUG] Data size is 42
+[SFS - DEBUG] Handling Data: 42, previous state: 0/42
+[SFS - DEBUG] <<< Packet Complete >>>
+Decoding object a
+SHORT
+Decoding object c
+BYTE
+Decoding object p
+SFS_OBJECT
+Decoding object r
+INT
+Decoding object uc
+SHORT
+Decoding object sc
+SHORT
+[SFS - INFO] Message: 1001 { Message id: 1001 }
+{ Dump: }
+
+	(int) r: 42
+	(short) uc: 1
+	(short) sc: 0
+
+[SFS - INFO] Data Read: Binary Size: 31
+80 00 1c 12 00 03 00 01 61 03 03 eb 00 01 63 02 	........a.....c.
+00 00 01 70 12 00 01 00 01 72 04 00 00 00 2a    	...p.....r....* 
+
+[SFS - DEBUG] Handling New Packet of size 31
+[SFS - DEBUG] Handling Header Size. Length: 30 (small)
+[SFS - DEBUG] Data size is 28
+[SFS - DEBUG] Handling Data: 28, previous state: 0/28
+[SFS - DEBUG] <<< Packet Complete >>>
+Decoding object a
+SHORT
+Decoding object c
+BYTE
+Decoding object p
+SFS_OBJECT
+Decoding object r
+INT
+[SFS - INFO] Message: 1003 { Message id: 1003 }
+{ Dump: }
+
+	(int) r: 42
+
+[SFS - WARN] You are not connected. Request cannot be sent: Sfs2X.Requests.ObjectMessageRequest[SFS - ERROR] TCPSocketLayer: Connection closed by the remote side
+
+Waiting for finish

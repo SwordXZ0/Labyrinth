@@ -40,31 +40,34 @@ public class GameController : MonoBehaviour {
 	// Unity callbacks
 	//----------------------------------------------------------
 	void Start() {
-		roomUsers= new List<SFSUser>();
+		roomUsers = new List<SFSUser> ();
 		if (!SmartFoxConnection.IsInitialized) {
-			Application.LoadLevel(0);
+			Application.LoadLevel (0);
 			return;
 		}
 		smartFox = SmartFoxConnection.Connection;
 		
 		// Register callback delegates
-		smartFox.AddEventListener(SFSEvent.OBJECT_MESSAGE, OnObjectMessage);
-		smartFox.AddEventListener(SFSEvent.CONNECTION_LOST, OnConnectionLost);
-		smartFox.AddEventListener(SFSEvent.USER_VARIABLES_UPDATE, OnUserVariableUpdate);
-		smartFox.AddEventListener(SFSEvent.USER_EXIT_ROOM, OnUserExitRoom);
-		smartFox.AddEventListener(SFSEvent.USER_ENTER_ROOM, OnUserEnterRoom);
-		
-		smartFox.AddLogListener(logLevel, OnDebugMessage);
+		smartFox.AddEventListener (SFSEvent.OBJECT_MESSAGE, OnObjectMessage);
+		smartFox.AddEventListener (SFSEvent.CONNECTION_LOST, OnConnectionLost);
+		smartFox.AddEventListener (SFSEvent.USER_VARIABLES_UPDATE, OnUserVariableUpdate);
+		smartFox.AddEventListener (SFSEvent.USER_EXIT_ROOM, OnUserExitRoom);
+		smartFox.AddEventListener (SFSEvent.USER_ENTER_ROOM, OnUserEnterRoom);
+		smartFox.AddEventListener (SFSEvent.ROOM_VARIABLES_UPDATE, OnRoomVariableUpdate);
+		smartFox.AddLogListener (logLevel, OnDebugMessage);
 		
 		// Start this clients avatar and get cracking!
-		int numModel = UnityEngine.Random.Range(0, playerModels.Length);
-		int numMaterial = UnityEngine.Random.Range(0, playerMaterials.Length);
-		SpawnLocalPlayer(numModel, numMaterial);
+		int numModel = UnityEngine.Random.Range (0, playerModels.Length);
+		int numMaterial = UnityEngine.Random.Range (0, playerMaterials.Length);
+		SpawnLocalPlayer (numModel, numMaterial);
 
-		currentRoom = smartFox.GetRoomByName("Game Room");
-		
-		Timer.initializeTimer();
-		gameStarted=false;
+		currentRoom = smartFox.LastJoinedRoom;
+
+
+		Timer.initializeTimer ();
+		gameStarted = false;
+
+
 	}
 	
 	void FixedUpdate() {
@@ -85,20 +88,39 @@ public class GameController : MonoBehaviour {
 	}
 	
 	void Update(){
-
 		if (gameFinished) {
-			Debug.Log("game finished");
-//			localPlayer.SetActive (false);
-//			Debug.Log("todos los users"+currentRoom.UserCount);
-//			foreach (SFSUser user in roomUsers) {
-//				Debug.Log("contiene "+user.Name+"="+currentRoom.ContainsUser(user));
-//				RemoveRemotePlayer (user);
-//				Debug.Log("contiene "+user.Name+"="+currentRoom.ContainsUser(user));
-//			}
-//			Debug.Log("sin remotes"+currentRoom.UserCount);
-//			RemoveLocalPlayer ();
-
+			List<RoomVariable> roomVariables = new List<RoomVariable>();
+			roomVariables.Add(new SFSRoomVariable("gameFinished", gameFinished));
+			smartFox.Send(new SetRoomVariablesRequest(roomVariables));
 		}
+		if (Input.GetKeyDown (KeyCode.P)) {
+			Debug.Log("manual called");
+			Debug.Log("user count = "+currentRoom.UserCount);
+			Debug.Log("max users = "+currentRoom.MaxUsers);
+			Debug.Log("currentroom name = "+currentRoom.Name);
+			Debug.Log("--------");
+			foreach(Room room in smartFox.RoomList){
+				Debug.Log("____room list roomName  =  "+room.Name);
+				Debug.Log("____room list roomId  =  "+room.Id);
+
+			}
+			Debug.Log("--------");
+			Debug.Log("manual end");
+		}
+
+//		if (gameFinished) {
+//			Debug.Log("game finished");
+////			localPlayer.SetActive (false);
+////			Debug.Log("todos los users"+currentRoom.UserCount);
+////			foreach (SFSUser user in roomUsers) {
+////				Debug.Log("contiene "+user.Name+"="+currentRoom.ContainsUser(user));
+////				RemoveRemotePlayer (user);
+////				Debug.Log("contiene "+user.Name+"="+currentRoom.ContainsUser(user));
+////			}
+////			Debug.Log("sin remotes"+currentRoom.UserCount);
+////			RemoveLocalPlayer ();
+//
+//		}
 
 
 		if (Input.GetKeyDown (KeyCode.P)) {
@@ -157,7 +179,9 @@ public class GameController : MonoBehaviour {
 	public void OnUserEnterRoom(BaseEvent evt) {
 		// User joined - and we might be standing still (not sending position info). So lets send him our position info
 
-		SFSUser user = (SFSUser)evt.Params["user"];		
+		SFSUser user = (SFSUser)evt.Params["user"];
+//		SFSRoom room = (SFSRoom)evt.Params ["room"];
+
 		if (localPlayer != null) {
 			List<UserVariable> userVariables = new List<UserVariable>();
 			userVariables.Add(new SFSUserVariable("x", (double)localPlayer.transform.position.x));
@@ -247,7 +271,18 @@ public class GameController : MonoBehaviour {
 			remotePlayers[user].GetComponentInChildren<Renderer>().material = playerMaterials[ user.GetVariable("mat").GetIntValue() ];
 		}
 	}
-	
+
+	public void OnRoomVariableUpdate(BaseEvent evt){
+		Debug.Log ("detected room variable update");
+		SFSRoom room = (SFSRoom)evt.Params["room"];
+		RoomVariable gameF = room.GetVariable ("gameFinished");
+		if (gameF.GetBoolValue()) {
+//			localPlayer.SetActive(false);
+			RemoveLocalPlayer();
+		}
+
+	}
+
 	public void OnDebugMessage(BaseEvent evt) {
 //		string message = (string)evt.Params["message"];
 //		Debug.Log("[SFS DEBUG] " + message);
