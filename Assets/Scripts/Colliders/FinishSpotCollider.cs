@@ -25,7 +25,9 @@ public class FinishSpotCollider : MonoBehaviour {
 			Debug.Log("player2 activo");
 			GameObject loserMenu=MenuFactoryMethod.createLostMenu();
 		}
-		GameController.gameFinished = true;
+
+//		GameController.gameFinished = true;
+		GameObject.Find ("GameController").GetComponent<GameController>().finishGame();
 
 	}
 

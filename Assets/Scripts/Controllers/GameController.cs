@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour {
 
 
 	private bool gameStarted;
-	public static bool	gameFinished;
+	public bool gameFinished;
 	private GameObject waitMenu;
 	//----------------------------------------------------------
 	// Setup variables
@@ -86,7 +86,10 @@ public class GameController : MonoBehaviour {
 			}
 		}
 	}
-	
+	public void finishGame(){
+		gameFinished = true;
+	}
+
 	void Update(){
 		if (gameFinished) {
 			List<RoomVariable> roomVariables = new List<RoomVariable>();
@@ -95,16 +98,22 @@ public class GameController : MonoBehaviour {
 		}
 		if (Input.GetKeyDown (KeyCode.P)) {
 			Debug.Log("manual called");
+			Debug.Log ("currentRoom is " + currentRoom.Name);
 			Debug.Log("user count = "+currentRoom.UserCount);
 			Debug.Log("max users = "+currentRoom.MaxUsers);
-			Debug.Log("currentroom name = "+currentRoom.Name);
-			Debug.Log("--------");
+			Debug.Log("--------ALLROOMS");
 			foreach(Room room in smartFox.RoomList){
 				Debug.Log("____room list roomName  =  "+room.Name);
 				Debug.Log("____room list roomId  =  "+room.Id);
 
 			}
-			Debug.Log("--------");
+			Debug.Log("--------ALLROOMSEND");
+
+			Debug.Log("+++++++++++++STATS");
+			Debug.Log("game satrted = "+gameStarted);
+			Debug.Log("gameFinished"+gameFinished);
+			Debug.Log("+++++++++++++STASTEND");
+
 			Debug.Log("manual end");
 		}
 
@@ -199,6 +208,7 @@ public class GameController : MonoBehaviour {
 	public void OnConnectionLost(BaseEvent evt) {	
 		// Reset all internal states so we kick back to login screen
 		smartFox.RemoveAllEventListeners();
+		RemoveLocalPlayer ();
 		Application.LoadLevel(0);
 	}
 	
@@ -273,12 +283,15 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void OnRoomVariableUpdate(BaseEvent evt){
-		Debug.Log ("detected room variable update");
+
 		SFSRoom room = (SFSRoom)evt.Params["room"];
 		RoomVariable gameF = room.GetVariable ("gameFinished");
 		if (gameF.GetBoolValue()) {
+			Debug.Log ("bool=true room variable update");
 //			localPlayer.SetActive(false);
+
 			RemoveLocalPlayer();
+
 		}
 
 	}
@@ -379,12 +392,21 @@ public class GameController : MonoBehaviour {
 		SFSObject obj = new SFSObject();
 		obj.PutUtfString("cmd", "rm");
 		smartFox.Send(new ObjectMessageRequest(obj, smartFox.LastJoinedRoom));
+		foreach(SFSUser user in smartFox.UserManager.GetUserList()){
+			if(user==smartFox.MySelf){
+				currentRoom.RemoveUser(user);
+				smartFox.Send(new LogoutRequest());
+				Debug.Log("removed local player");
+				break;
+			}
+		}
 	}
 	
 	private void RemoveRemotePlayer(SFSUser user) {
 		if (user == smartFox.MySelf) return;
 		
 		if (remotePlayers.ContainsKey(user)) {
+			currentRoom.RemoveUser(user);
 			Destroy(remotePlayers[user]);
 			remotePlayers.Remove(user);
 		}
