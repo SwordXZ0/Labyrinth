@@ -20,11 +20,12 @@ public class Connection : MonoBehaviour {
 	//----------------------------------------------------------
 	// Setup variables
 	//----------------------------------------------------------
-//	public string serverName = "0.0.0.0";
-	public string serverName = "208.66.193.58";
-	public int serverPort = 9933;
-	public string zone = "BasicExamples";
-	public string genericRoomName = "GameRoom";
+//	private string serverName = "0.0.0.0";
+//	private string serverName = "127.0.0.1";
+	private string serverName = "63.251.106.58";
+	private int serverPort = 9933;
+	private string zone = "BasicExamples";
+	private string genericRoomName = "GameRoom";
 	
 //	public string zone = "Labyrinth";
 	public LogLevel logLevel = LogLevel.DEBUG;
@@ -44,15 +45,21 @@ public class Connection : MonoBehaviour {
 	//----------------------------------------------------------
 	void Start() {
 		serverConnectionStatusMessage += "";
+
+
+
 		// In a webplayer (or editor in webplayer mode) we need to setup security policy negotiation with the server first
 		if (Application.isWebPlayer) {
 			if (!Security.PrefetchSocketPolicy(serverName, serverPort, 500)) {
 				Debug.LogError("Security Exception. Policy file load failed!");
 			}
 		}
-		
+
+
 		// Lets connect
 		smartFox = new SmartFox(true);
+
+		
 					
 		// Register callback delegate
 		smartFox.AddEventListener(SFSEvent.CONNECTION, OnConnection);
@@ -78,6 +85,7 @@ public class Connection : MonoBehaviour {
 
 			GameObject.Find ("StartGame").GetComponent<UnityEngine.UI.Button> ().onClick.AddListener (() => {
 				Debug.Log("Sending login request");
+				Debug.LogError("Sending login request");
 				smartFox.Send(new LoginRequest(username, "", zone));
 
 			});
@@ -101,7 +109,7 @@ public class Connection : MonoBehaviour {
 		if (smartFox != null) {
 			
 			if (!smartFox.IsConnected) {
-				Debug.Log ("Not connected");
+				Debug.LogError ("Not connected");
 			} else if (isJoining) {
 				Debug.Log ("Joining.....");
 			}
@@ -124,10 +132,10 @@ public class Connection : MonoBehaviour {
 
 			roomList = SmartFoxConnection.Connection.RoomList;
 ;
-			Debug.Log ("____CONNECTION");
+			Debug.LogError ("____CONNECTION  on "+ serverName);
 			foreach(Room room in SmartFoxConnection.Connection.RoomList){
-				Debug.Log("____CONNECTIONroom list roomName  =  "+room.Name);
-				Debug.Log("____CONNECTIONroom list roomId  =  "+room.Id);
+				Debug.LogError("____CONNECTIONroom list roomName  =  "+room.Name);
+				Debug.LogError("____CONNECTIONroom list roomId  =  "+room.Id);
 				
 			}
 			
