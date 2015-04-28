@@ -5,6 +5,8 @@ public class WinMenu : MonoBehaviour {
 
 	public void exit(){
 
-		Application.LoadLevel (0);
+		if (Application.CanStreamedLevelBeLoaded (0)) {
+			Application.LoadLevel (0);
+		}
 	}
 }

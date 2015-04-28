@@ -12,8 +12,7 @@ using Sfs2X.Logging;
 
 public class GameController : MonoBehaviour {
 
-
-	private bool gameStarted;
+	private bool gameReady;
 	public bool gameFinished;
 	private GameObject waitMenu;
 	//----------------------------------------------------------
@@ -42,7 +41,9 @@ public class GameController : MonoBehaviour {
 	void Start() {
 		roomUsers = new List<SFSUser> ();
 		if (!SmartFoxConnection.IsInitialized) {
-			Application.LoadLevel (0);
+			if (Application.CanStreamedLevelBeLoaded (0)) {
+				Application.LoadLevel (0);
+			}
 			return;
 		}
 		smartFox = SmartFoxConnection.Connection;
@@ -65,7 +66,7 @@ public class GameController : MonoBehaviour {
 
 
 		Timer.initializeTimer ();
-		gameStarted = false;
+		gameReady = false;
 
 
 	}
@@ -81,6 +82,7 @@ public class GameController : MonoBehaviour {
 				userVariables.Add(new SFSUserVariable("y", (double)localPlayer.transform.position.y));
 				userVariables.Add(new SFSUserVariable("z", (double)localPlayer.transform.position.z));
 				userVariables.Add(new SFSUserVariable("rot", (double)localPlayer.transform.rotation.eulerAngles.y));
+
 				smartFox.Send(new SetUserVariablesRequest(userVariables));
 				localPlayerController.MovementDirty = false;
 			}
@@ -110,7 +112,7 @@ public class GameController : MonoBehaviour {
 			Debug.Log("--------ALLROOMSEND");
 
 			Debug.Log("+++++++++++++STATS");
-			Debug.Log("game satrted = "+gameStarted);
+			Debug.Log("game satrted = "+gameReady);
 			Debug.Log("gameFinished"+gameFinished);
 			Debug.Log("+++++++++++++STASTEND");
 
@@ -137,8 +139,9 @@ public class GameController : MonoBehaviour {
 				MenuFactoryMethod.createPauseMenu();
 			}
 		}
-		if (!gameStarted) {
-			if (currentRoom != null) {
+
+		if (currentRoom != null) {
+			if (!gameReady) {
 
 				if (currentRoom.UserCount < currentRoom.MaxUsers) {	
 
@@ -146,26 +149,22 @@ public class GameController : MonoBehaviour {
 						
 						waitMenu = MenuFactoryMethod.createWaitMenu ();
 						localPlayer.SetActive (false);
-						gameStarted = false;
 						
 					}
 				}
-				else {
-					
-					if (waitMenu != null) {
-						Destroy (waitMenu);
-					}
-					localPlayer.SetActive (true);
-					gameStarted = true;
-					
-				}
-				
+
+				gameReady = currentRoom.GetVariable ("gameReady").GetBoolValue ();
 			}
+			else if (gameReady) {
+				if (waitMenu != null) {
+					Destroy (waitMenu);
+				}
+				Timer.updateTimer();
+				localPlayer.SetActive (true);
+			}
+
 		}
-		
-		if (gameStarted) {
-			Timer.updateTimer();
-		}
+
 	}
 	
 
@@ -199,6 +198,7 @@ public class GameController : MonoBehaviour {
 			userVariables.Add(new SFSUserVariable("rot", (double)localPlayer.transform.rotation.eulerAngles.y));
 			userVariables.Add(new SFSUserVariable("model", smartFox.MySelf.GetVariable("model").GetIntValue()));
 			userVariables.Add(new SFSUserVariable("mat", smartFox.MySelf.GetVariable("mat").GetIntValue()));
+			userVariables.Add(new SFSUserVariable("playerReady", true));
 			smartFox.Send(new SetUserVariablesRequest(userVariables));
 		}
 
@@ -209,7 +209,10 @@ public class GameController : MonoBehaviour {
 		// Reset all internal states so we kick back to login screen
 		smartFox.RemoveAllEventListeners();
 		RemoveLocalPlayer ();
-		Application.LoadLevel(0);
+		if (Application.CanStreamedLevelBeLoaded (0)) {
+			Application.LoadLevel (0);
+		}
+
 	}
 	
 	public void OnObjectMessage(BaseEvent evt) {
@@ -280,6 +283,24 @@ public class GameController : MonoBehaviour {
 		if (changedVars.Contains("mat")) {
 			remotePlayers[user].GetComponentInChildren<Renderer>().material = playerMaterials[ user.GetVariable("mat").GetIntValue() ];
 		}
+		if (changedVars.Contains("playerReady")) {
+			bool otherPlayerReady = true;
+			foreach(SFSUser other in roomUsers){
+				if(!other.Name.Equals(smartFox.MySelf.Name)){
+					otherPlayerReady = other.GetVariable("playerReady").GetBoolValue();
+				}
+				if(!otherPlayerReady){
+					break;
+				}
+			}
+			if(otherPlayerReady){
+				bool gameReadyTemp = true;
+				List<RoomVariable> roomVars = new List<RoomVariable>();
+				roomVars.Add(new SFSRoomVariable("gameReady", gameReadyTemp));
+				smartFox.Send(new SetRoomVariablesRequest(roomVars));
+			}
+		}
+		
 	}
 
 	public void OnRoomVariableUpdate(BaseEvent evt){
@@ -342,7 +363,7 @@ public class GameController : MonoBehaviour {
 		localPlayer.transform.GetChild (0).tag="Player1";
 
 		localPlayer.AddComponent<Rigidbody>();
-		localPlayer.GetComponent<Rigidbody> ().useGravity = false;
+		localPlayer.GetComponent<Rigidbody> ().useGravity = true;
 		localPlayer.GetComponent<Rigidbody> ().constraints =  RigidbodyConstraints.FreezePositionY| RigidbodyConstraints.FreezeRotation;
 //		localPlayer.AddComponent<CharacterController> ();
 
@@ -379,7 +400,7 @@ public class GameController : MonoBehaviour {
 		remotePlayer.transform.GetChild (0).tag="Player2";
 
 		remotePlayer.AddComponent<Rigidbody>();
-		remotePlayer.GetComponent<Rigidbody> ().useGravity = false;
+		remotePlayer.GetComponent<Rigidbody> ().useGravity = true;
 		remotePlayer.GetComponent<Rigidbody> ().constraints =  RigidbodyConstraints.FreezePositionY| RigidbodyConstraints.FreezeRotation;
 		//		localPlayer.AddComponent<CharacterController> ();
 		

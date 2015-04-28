@@ -4,8 +4,8 @@ using System.Collections;
 public class LostMenu : MonoBehaviour {
 
 	public void exit(){
-
-
-		Application.LoadLevel (0);
+		if (Application.CanStreamedLevelBeLoaded (0)) {
+			Application.LoadLevel (0);
+		}
 	}
 }

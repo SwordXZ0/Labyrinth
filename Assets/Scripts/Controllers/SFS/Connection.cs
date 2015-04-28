@@ -194,8 +194,11 @@ public class Connection : MonoBehaviour {
 			settings.MaxUsers = 2;
 			settings.IsGame = true;
 			bool gameFinished = false;
+			bool gameReady = false;
 			SFSRoomVariable gameFinishedVar = new SFSRoomVariable("gameFinished",gameFinished);
+			SFSRoomVariable gameReadyVar = new SFSRoomVariable("gameReady",gameReady);
 			settings.Variables.Add(gameFinishedVar);
+			settings.Variables.Add(gameReadyVar);
 			Debug.Log("new game name = "+settings.Name);
 			smartFox.Send(new CreateRoomRequest(settings, true));
 //			SmartFoxConnection.Connection.Send(new CreateRoomRequest(settings, true));
@@ -234,8 +237,11 @@ public class Connection : MonoBehaviour {
 			settings.MaxUsers = 2;
 			settings.IsGame = true;
 			bool gameFinished = false;
+			bool gameReady = false;
 			SFSRoomVariable gameFinishedVar = new SFSRoomVariable("gameFinished",gameFinished);
+			SFSRoomVariable gameReadyVar = new SFSRoomVariable("gameReady",gameReady);
 			settings.Variables.Add(gameFinishedVar);
+			settings.Variables.Add(gameReadyVar);
 			Debug.Log("new game name = "+settings.Name);
 			smartFox.Send(new CreateRoomRequest(settings, true));
 		}
@@ -247,7 +253,9 @@ public class Connection : MonoBehaviour {
 
 		// Room was joined - lets load the game and remove all the listeners from this component
 		smartFox.RemoveAllEventListeners();
-		Application.LoadLevel(1);
+		if (Application.CanStreamedLevelBeLoaded (1)) {
+			Application.LoadLevel (1);
+		}
 	}
 	
 	void OnLogout(BaseEvent evt) {
