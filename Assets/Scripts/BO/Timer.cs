@@ -21,4 +21,9 @@ public static class Timer{
 		text.text = "Time: "+minutes + ":" + seconds;
 
 	}
+
+	public static void stopTimer(){
+		float finalTime = timer;
+		timer = finalTime;
+	}
 }

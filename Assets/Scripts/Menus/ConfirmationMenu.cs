@@ -18,6 +18,7 @@ public class ConfirmationMenu : MonoBehaviour {
 	}
 
 	public void exit(){
+		GameObject.Find ("GameController").GetComponent<GameController>().surrender();
 		if (Application.CanStreamedLevelBeLoaded (0)) {
 			Application.LoadLevel (0);
 		}

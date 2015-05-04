@@ -14,7 +14,7 @@ public class SignUpService : BusinessService {
 	}
 
 	IEnumerator BusinessService.doProcessing(){
-		string URL= "http://ancestralstudios.com/Labyrinth/signup.php";
+		string URL= "http://ancestralstudios.com/Labyrinth/Services/signup.php";
 		WWWForm form = new WWWForm();
 		form.AddField("user", user.name);
 		form.AddField("password", user.password);

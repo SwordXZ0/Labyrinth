@@ -12,7 +12,7 @@ public class SaveWinnerScore : BusinessService  {
 	}
 
 	IEnumerator BusinessService.doProcessing(){
-		string URL= "http://ancestralstudios.com/Labyrinth/saveTime.php";
+		string URL= "http://ancestralstudios.com/Labyrinth/Services/saveTime.php";
 		WWWForm form = new WWWForm();
 		form.AddField("user", result.username);
 		form.AddField("time", result.time);

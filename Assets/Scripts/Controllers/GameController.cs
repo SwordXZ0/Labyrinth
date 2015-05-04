@@ -14,13 +14,16 @@ public class GameController : MonoBehaviour {
 
 	private bool gameReady;
 	public bool gameFinished;
+	public bool userQuit;
 	private GameObject waitMenu;
+
 	//----------------------------------------------------------
 	// Setup variables
 	//----------------------------------------------------------
 	public GameObject[] spawnPoints;
 	public GameObject[] playerModels;
 	public Material[] playerMaterials;
+//	private Material textMaterial;
 
 
 	private List<SFSUser> roomUsers;
@@ -58,8 +61,10 @@ public class GameController : MonoBehaviour {
 		smartFox.AddLogListener (logLevel, OnDebugMessage);
 		
 		// Start this clients avatar and get cracking!
-		int numModel = UnityEngine.Random.Range (0, playerModels.Length);
-		int numMaterial = UnityEngine.Random.Range (0, playerMaterials.Length);
+//		int numModel = UnityEngine.Random.Range (0, playerModels.Length);
+//		int numMaterial = UnityEngine.Random.Range (0, playerMaterials.Length);
+		int numModel = 0;
+		int numMaterial = 0;
 		SpawnLocalPlayer (numModel, numMaterial);
 
 		currentRoom = smartFox.LastJoinedRoom;
@@ -92,7 +97,23 @@ public class GameController : MonoBehaviour {
 		gameFinished = true;
 	}
 
+	public void surrender(){
+		userQuit = true;
+		finishGame ();
+	}
+
 	void Update(){
+		if (userQuit) {
+			List<RoomVariable> roomVariables = new List<RoomVariable>();
+			roomVariables.Add(new SFSRoomVariable("userQuit", true));
+			smartFox.Send(new SetRoomVariablesRequest(roomVariables));
+		}
+		if (gameReady && currentRoom.UserCount < currentRoom.MaxUsers) {
+			List<RoomVariable> roomVariables = new List<RoomVariable>();
+			roomVariables.Add(new SFSRoomVariable("gameFinished", true));
+			smartFox.Send(new SetRoomVariablesRequest(roomVariables));
+		}
+
 		if (gameFinished) {
 			List<RoomVariable> roomVariables = new List<RoomVariable>();
 			roomVariables.Add(new SFSRoomVariable("gameFinished", gameFinished));
@@ -118,21 +139,6 @@ public class GameController : MonoBehaviour {
 
 			Debug.Log("manual end");
 		}
-
-//		if (gameFinished) {
-//			Debug.Log("game finished");
-////			localPlayer.SetActive (false);
-////			Debug.Log("todos los users"+currentRoom.UserCount);
-////			foreach (SFSUser user in roomUsers) {
-////				Debug.Log("contiene "+user.Name+"="+currentRoom.ContainsUser(user));
-////				RemoveRemotePlayer (user);
-////				Debug.Log("contiene "+user.Name+"="+currentRoom.ContainsUser(user));
-////			}
-////			Debug.Log("sin remotes"+currentRoom.UserCount);
-////			RemoveLocalPlayer ();
-//
-//		}
-
 
 		if (Input.GetKeyDown (KeyCode.P)) {
 			if(GameObject.Find("PauseMenu(Clone)")==null){
@@ -170,6 +176,7 @@ public class GameController : MonoBehaviour {
 
 	void OnApplicationQuit() {
 		// Before leaving, lets notify the others about this client dropping out
+		GameObject.Find ("GameController").GetComponent<GameController>().finishGame();
 		PlayerPrefs.DeleteKey("session");
 		RemoveLocalPlayer();
 	}
@@ -272,9 +279,9 @@ public class GameController : MonoBehaviour {
 				true);
 		}
 		// Remote client got new name?
-		if (changedVars.Contains("name")) {
-			remotePlayers[user].GetComponentInChildren<TextMesh>().text = user.Name;
-		}
+//		if (changedVars.Contains("name")) {
+//			remotePlayers[user].GetComponentInChildren<TextMesh>().text = user.Name;
+//		}
 		// Remote client selected new model?
 		if (changedVars.Contains("model")) {
 			SpawnRemotePlayer(user, user.GetVariable("model").GetIntValue(), user.GetVariable("mat").GetIntValue(), remotePlayers[user].transform.position, remotePlayers[user].transform.rotation);
@@ -305,14 +312,22 @@ public class GameController : MonoBehaviour {
 
 	public void OnRoomVariableUpdate(BaseEvent evt){
 
+		ArrayList changedVars = (ArrayList)evt.Params["changedVars"];
 		SFSRoom room = (SFSRoom)evt.Params["room"];
-		RoomVariable gameF = room.GetVariable ("gameFinished");
-		if (gameF.GetBoolValue()) {
-			Debug.Log ("bool=true room variable update");
-//			localPlayer.SetActive(false);
 
-			RemoveLocalPlayer();
+		if (changedVars.Contains("gameFinished")) {
+			RoomVariable gameF = room.GetVariable ("gameFinished");
+			if (gameF.GetBoolValue()) {
+				//			localPlayer.SetActive(false);
 
+				Timer.stopTimer();
+				RemoveLocalPlayer();
+
+			}
+		}
+
+		if (changedVars.Contains ("userQuit")) {
+			MenuFactoryMethod.createTieMenu();
 		}
 
 	}
@@ -354,24 +369,27 @@ public class GameController : MonoBehaviour {
 		localPlayer.transform.rotation = rot;
 		
 		// Assign starting material
+//		textMaterial = localPlayer.GetComponentInChildren<TextMesh>().gameObject.GetComponent<MeshRenderer>().material; 
 		localPlayer.GetComponentInChildren<Renderer>().material = playerMaterials[numMaterial];
 		
 		// Since this is the local player, lets add a controller and fix the camera
 		localPlayer.AddComponent<PlayerController>();
 
 		localPlayer.tag = "Player1";
-		localPlayer.transform.GetChild (0).tag="Player1";
+//		localPlayer.transform.GetChild (0).tag="Player1";
 
 		localPlayer.AddComponent<Rigidbody>();
-		localPlayer.GetComponent<Rigidbody> ().useGravity = true;
+		localPlayer.GetComponent<Rigidbody> ().useGravity = false;
 		localPlayer.GetComponent<Rigidbody> ().constraints =  RigidbodyConstraints.FreezePositionY| RigidbodyConstraints.FreezeRotation;
 //		localPlayer.AddComponent<CharacterController> ();
 
 
 		localPlayerController = localPlayer.GetComponent<PlayerController>();
-		localPlayer.GetComponentInChildren<TextMesh>().text = smartFox.MySelf.Name;
+//		localPlayer.GetComponentInChildren<TextMesh>().text = smartFox.MySelf.Name;
+//		localPlayer.GetComponentInChildren<TextMesh> ().gameObject.GetComponent<MeshRenderer> ().material = textMaterial;
 
-		Camera.main.transform.position = localPlayer.transform.position;
+
+		Camera.main.transform.position = new Vector3 (localPlayer.transform.position.x,localPlayer.transform.position.y+1.0f,localPlayer.transform.position.z);
 		Camera.main.transform.parent = localPlayer.transform;
 		
 		// Lets set the model and material choice and tell the others about it
@@ -392,15 +410,19 @@ public class GameController : MonoBehaviour {
 		GameObject remotePlayer = GameObject.Instantiate(playerModels[numModel]) as GameObject;
 		remotePlayer.AddComponent<SimpleRemoteInterpolation>();
 		remotePlayer.GetComponent<SimpleRemoteInterpolation>().SetTransform(pos, rot, false);
-		
+
 		// Color and name
-		remotePlayer.GetComponentInChildren<TextMesh>().text = user.Name;
+//		remotePlayer.GetComponentInChildren<TextMesh>().text = user.Name;
+
+
 		remotePlayer.GetComponentInChildren<Renderer>().material = playerMaterials[numMaterial];
 		remotePlayer.tag = "Player2";
-		remotePlayer.transform.GetChild (0).tag="Player2";
+//		remotePlayer.transform.GetChild (0).tag="Player2";
+
+//		remotePlayer.GetComponentInChildren<TextMesh> ().gameObject.GetComponent<MeshRenderer> ().material = textMaterial;
 
 		remotePlayer.AddComponent<Rigidbody>();
-		remotePlayer.GetComponent<Rigidbody> ().useGravity = true;
+		remotePlayer.GetComponent<Rigidbody> ().useGravity = false;
 		remotePlayer.GetComponent<Rigidbody> ().constraints =  RigidbodyConstraints.FreezePositionY| RigidbodyConstraints.FreezeRotation;
 		//		localPlayer.AddComponent<CharacterController> ();
 		

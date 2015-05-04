@@ -16,6 +16,8 @@ public class PauseMenu : MonoBehaviour {
 
 	public void surrender(){
 		MenuFactoryMethod.createConfrimationGameMenu ();
+
 		Destroy (this.gameObject);
+
 	}
 }

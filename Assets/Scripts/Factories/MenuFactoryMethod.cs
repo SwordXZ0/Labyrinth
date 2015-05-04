@@ -45,4 +45,7 @@ public class MenuFactoryMethod:MonoBehaviour {
 	public static GameObject createWaitMenu(){
 		return Instantiate (Resources.Load("Prefabs/Menu/WaitMenu")as GameObject);
 	}
+	public static GameObject createTieMenu(){
+		return Instantiate (Resources.Load("Prefabs/Menu/TieMenu")as GameObject);
+	}
 }

@@ -110,6 +110,7 @@ public class Connection : MonoBehaviour {
 			
 			if (!smartFox.IsConnected) {
 				Debug.LogError ("Not connected");
+				Debug.LogError("roomList "+roomList);
 			} else if (isJoining) {
 				Debug.Log ("Joining.....");
 			}
@@ -195,8 +196,10 @@ public class Connection : MonoBehaviour {
 			settings.IsGame = true;
 			bool gameFinished = false;
 			bool gameReady = false;
+			bool userQuit = false;
 			SFSRoomVariable gameFinishedVar = new SFSRoomVariable("gameFinished",gameFinished);
 			SFSRoomVariable gameReadyVar = new SFSRoomVariable("gameReady",gameReady);
+			SFSRoomVariable userQuitVar = new SFSRoomVariable("userQuit",userQuit);
 			settings.Variables.Add(gameFinishedVar);
 			settings.Variables.Add(gameReadyVar);
 			Debug.Log("new game name = "+settings.Name);
@@ -238,8 +241,10 @@ public class Connection : MonoBehaviour {
 			settings.IsGame = true;
 			bool gameFinished = false;
 			bool gameReady = false;
+			bool userQuit = false;
 			SFSRoomVariable gameFinishedVar = new SFSRoomVariable("gameFinished",gameFinished);
 			SFSRoomVariable gameReadyVar = new SFSRoomVariable("gameReady",gameReady);
+			SFSRoomVariable userQuitVar = new SFSRoomVariable("userQuit",userQuit);
 			settings.Variables.Add(gameFinishedVar);
 			settings.Variables.Add(gameReadyVar);
 			Debug.Log("new game name = "+settings.Name);

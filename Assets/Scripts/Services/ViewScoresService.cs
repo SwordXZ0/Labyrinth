@@ -11,7 +11,7 @@ public class ViewScoresService: BusinessService {
 	}
 
 	IEnumerator BusinessService.doProcessing(){
-		WWW www = new WWW("http://ancestralstudios.com/Labyrinth/retrieveTimes.php");
+		WWW www = new WWW("http://ancestralstudios.com/Labyrinth/Services/retrieveTimes.php");
 		yield return www;
 		
 		if (!string.IsNullOrEmpty (www.error)) {
