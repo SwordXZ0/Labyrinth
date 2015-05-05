@@ -14,7 +14,6 @@ public class GameController : MonoBehaviour {
 
 	private bool gameReady;
 	public bool gameFinished;
-	public bool userQuit;
 	private GameObject waitMenu;
 
 	//----------------------------------------------------------
@@ -97,20 +96,19 @@ public class GameController : MonoBehaviour {
 		gameFinished = true;
 	}
 
-	public void surrender(){
-		userQuit = true;
-		finishGame ();
+	public void leaveGame(){
+		List<UserVariable> userVariables = new List<UserVariable>();
+		userVariables.Add(new SFSUserVariable("playerLeft", true));
+		smartFox.Send(new SetUserVariablesRequest(userVariables));
+		//smartFox.RemoveAllEventListeners();
+		Debug.Log("leave game remove");
+		RemoveLocalPlayer ();
 	}
 
 	void Update(){
-		if (userQuit) {
-			List<RoomVariable> roomVariables = new List<RoomVariable>();
-			roomVariables.Add(new SFSRoomVariable("userQuit", true));
-			smartFox.Send(new SetRoomVariablesRequest(roomVariables));
-		}
 		if (gameReady && currentRoom.UserCount < currentRoom.MaxUsers) {
 			List<RoomVariable> roomVariables = new List<RoomVariable>();
-			roomVariables.Add(new SFSRoomVariable("gameFinished", true));
+			roomVariables.Add(new SFSRoomVariable("gameFinished", gameFinished));
 			smartFox.Send(new SetRoomVariablesRequest(roomVariables));
 		}
 
@@ -176,9 +174,9 @@ public class GameController : MonoBehaviour {
 
 	void OnApplicationQuit() {
 		// Before leaving, lets notify the others about this client dropping out
-		GameObject.Find ("GameController").GetComponent<GameController>().finishGame();
+
 		PlayerPrefs.DeleteKey("session");
-		RemoveLocalPlayer();
+		leaveGame ();
 	}
 	
 	//----------------------------------------------------------
@@ -206,6 +204,7 @@ public class GameController : MonoBehaviour {
 			userVariables.Add(new SFSUserVariable("model", smartFox.MySelf.GetVariable("model").GetIntValue()));
 			userVariables.Add(new SFSUserVariable("mat", smartFox.MySelf.GetVariable("mat").GetIntValue()));
 			userVariables.Add(new SFSUserVariable("playerReady", true));
+			userVariables.Add(new SFSUserVariable("playerLeft", false));
 			smartFox.Send(new SetUserVariablesRequest(userVariables));
 		}
 
@@ -214,8 +213,8 @@ public class GameController : MonoBehaviour {
 	
 	public void OnConnectionLost(BaseEvent evt) {	
 		// Reset all internal states so we kick back to login screen
-		smartFox.RemoveAllEventListeners();
-		RemoveLocalPlayer ();
+		leaveGame ();
+
 		if (Application.CanStreamedLevelBeLoaded (0)) {
 			Application.LoadLevel (0);
 		}
@@ -307,6 +306,15 @@ public class GameController : MonoBehaviour {
 				smartFox.Send(new SetRoomVariablesRequest(roomVars));
 			}
 		}
+		if (changedVars.Contains ("playerLeft")) {
+			UserVariable pLeft = user.GetVariable("playerLeft");
+			if(pLeft.GetBoolValue()){
+				MenuFactoryMethod.createTieMenu();
+				Timer.stopTimer();
+				Debug.Log("onuservar left remove");
+				RemoveLocalPlayer();
+			}
+		}
 		
 	}
 
@@ -319,15 +327,11 @@ public class GameController : MonoBehaviour {
 			RoomVariable gameF = room.GetVariable ("gameFinished");
 			if (gameF.GetBoolValue()) {
 				//			localPlayer.SetActive(false);
-
+				Debug.Log("game finish remove");
 				Timer.stopTimer();
 				RemoveLocalPlayer();
 
 			}
-		}
-
-		if (changedVars.Contains ("userQuit")) {
-			MenuFactoryMethod.createTieMenu();
 		}
 
 	}

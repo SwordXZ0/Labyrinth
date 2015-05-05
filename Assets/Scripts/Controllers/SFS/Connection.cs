@@ -84,8 +84,7 @@ public class Connection : MonoBehaviour {
 //			}
 
 			GameObject.Find ("StartGame").GetComponent<UnityEngine.UI.Button> ().onClick.AddListener (() => {
-				Debug.Log("Sending login request");
-				Debug.LogError("Sending login request");
+				Debug.Log("Sending login request");;
 				smartFox.Send(new LoginRequest(username, "", zone));
 
 			});
@@ -109,8 +108,7 @@ public class Connection : MonoBehaviour {
 		if (smartFox != null) {
 			
 			if (!smartFox.IsConnected) {
-				Debug.LogError ("Not connected");
-				Debug.LogError("roomList "+roomList);
+				Debug.Log ("Not connected");
 			} else if (isJoining) {
 				Debug.Log ("Joining.....");
 			}
@@ -132,13 +130,6 @@ public class Connection : MonoBehaviour {
 			SmartFoxConnection.Connection = smartFox;
 
 			roomList = SmartFoxConnection.Connection.RoomList;
-;
-			Debug.LogError ("____CONNECTION  on "+ serverName);
-			foreach(Room room in SmartFoxConnection.Connection.RoomList){
-				Debug.LogError("____CONNECTIONroom list roomName  =  "+room.Name);
-				Debug.LogError("____CONNECTIONroom list roomId  =  "+room.Id);
-				
-			}
 			
 			serverConnectionStatusMessage = "Connection succesful!";
 		} else {
@@ -196,10 +187,8 @@ public class Connection : MonoBehaviour {
 			settings.IsGame = true;
 			bool gameFinished = false;
 			bool gameReady = false;
-			bool userQuit = false;
 			SFSRoomVariable gameFinishedVar = new SFSRoomVariable("gameFinished",gameFinished);
 			SFSRoomVariable gameReadyVar = new SFSRoomVariable("gameReady",gameReady);
-			SFSRoomVariable userQuitVar = new SFSRoomVariable("userQuit",userQuit);
 			settings.Variables.Add(gameFinishedVar);
 			settings.Variables.Add(gameReadyVar);
 			Debug.Log("new game name = "+settings.Name);
@@ -241,10 +230,8 @@ public class Connection : MonoBehaviour {
 			settings.IsGame = true;
 			bool gameFinished = false;
 			bool gameReady = false;
-			bool userQuit = false;
 			SFSRoomVariable gameFinishedVar = new SFSRoomVariable("gameFinished",gameFinished);
 			SFSRoomVariable gameReadyVar = new SFSRoomVariable("gameReady",gameReady);
-			SFSRoomVariable userQuitVar = new SFSRoomVariable("userQuit",userQuit);
 			settings.Variables.Add(gameFinishedVar);
 			settings.Variables.Add(gameReadyVar);
 			Debug.Log("new game name = "+settings.Name);
